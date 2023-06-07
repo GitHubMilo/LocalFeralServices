@@ -1,6 +1,7 @@
 # Local Feral Services
 A repo for using OVPN from Feral, but running Radarr / Sonarr etc. on a local server.
-** NOTE: this is applicable on x86 Linux hosts **
+
+**NOTE:** this is applicable on x86 Linux hosts
 
 ## Initial Configuration
 On your local host, in your chosen directory...let's assume it is "/share/Containers"
