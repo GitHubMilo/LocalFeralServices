@@ -94,6 +94,7 @@ services:
 
  flaresolverr:
   image: ghcr.io/flaresolverr/flaresolverr:latest
+  network_mode: "service:gluetun"
   container_name: flaresolverr
   environment:
    - LOG_LEVEL=${LOG_LEVEL:-info}
