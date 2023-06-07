@@ -32,5 +32,5 @@ Within the Radarr / Sonarr etc. services, you would add your Feral download clie
 This means that your local services can then download / copy / import using the locally mounted path (/mnt/feralMedia/movies/ for example)
 ![image](https://github.com/GitHubMilo/LocalFeralServices/assets/22710842/ac86a617-0b69-4470-9307-7265f0bfc41f)
 
-In your "Indexer" setup, you can add the local "Jackett" instance:
+In your "Indexer" setup, you can add the local "Jackett" instance (copy the "Torznab" feed from within Jackett):
 ![image](https://github.com/GitHubMilo/LocalFeralServices/assets/22710842/a51b8275-0cd4-46e9-bb4d-4920ad553e85)
