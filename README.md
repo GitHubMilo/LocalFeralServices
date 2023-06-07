@@ -3,7 +3,7 @@ A repo for using OVPN from Feral, but running Radarr / Sonarr etc.
 
 On your local host, in your chosen directory...let's assume it is "/share/Containers"
 
-Copy the ".env" file from this repo into it.
+Copy the ".env" & "docker-compose.yaml" files from this repo into it.
 Edit it, change the values to whatever is needed.
 * "NETWORK_SUBMASK" - if your home router has an IP address of 192.168.1.x - then leave it as it is. Essentially, whatever the IP address is, change the last number to a zero and use that.
 * "TZ" - this is the timezone, set to a valid TZ identifier (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
