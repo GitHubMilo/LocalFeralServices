@@ -1,5 +1,5 @@
 # LocalFeralServices
-A repo for using OVPN from Feral, but running Radarr / Sonarr etc.
+A repo for using OVPN from Feral, but running Radarr / Sonarr etc. on a local server.
 
 On your local host, in your chosen directory...let's assume it is "/share/Containers"
 
