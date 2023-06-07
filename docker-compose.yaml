@@ -1,0 +1,99 @@
+version: '3.9'
+services:
+ gluetun:
+  image: qmcgaw/private-internet-access
+  container_name: gluetun
+  cap_add:
+   - NET_ADMIN
+  network_mode: bridge
+  ports:
+   - 8888:8888/tcp # HTTP proxy
+   - 8388:8388/tcp # Shadowsocks
+   - 8388:8388/udp # Shadowsocks
+   - 8000:8000/tcp # Build-in HTTP control header
+   - 8989:8989     # sonarr
+   - 7878:7878     # radarr
+   - 8686:8686     # lidarr
+   - 9117:9117     # jackett
+   - 7474:7474     # autorbrr
+  volumes:
+   - ./config/vpn:/gluetun
+  environment:
+   - VPNSP=custom
+   - OPENVPN_CUSTOM_CONFIG=/gluetun/client.ovpn
+   - TZ=${TZ}
+   - FIREWALL_OUTBOUND_SUBNETS=${NETWORK_SUBMASK}/24
+   - HTTPPROXY=on
+  restart: unless-stopped
+
+ radarr:
+  container_name: radarr
+  network_mode: "service:gluetun"
+  restart: unless-stopped
+  volumes:
+    - ./config/Radarr:/config
+    - /${LOCAL_MOUNT_POINT}/Movies:/mnt/Movies
+    - "sshfsdata:/mnt/feralMedia:ro"
+  environment:
+   - PUID=${PUID}
+   - PGID=${PGID}
+   - TZ=${TZ}
+  image: linuxserver/radarr
+
+ sonarr:
+  container_name: sonarr
+  network_mode: "service:gluetun"
+  restart: unless-stopped
+  volumes:
+    - ./config/Sonarr:/config
+    - /${LOCAL_MOUNT_POINT}/TVShows:/mnt/TVShows
+    - "sshfsdata:/mnt/feralMedia:ro"
+  environment:
+   - PUID=${PUID}
+   - PGID=${PGID}
+   - TZ=${TZ}
+  image: linuxserver/sonarr
+
+ lidarr:
+  container_name: lidarr
+  network_mode: "service:gluetun"
+  restart: unless-stopped
+  volumes:
+    - ./config/Lidarr:/config
+    - /${LOCAL_MOUNT_POINT}/Music:/mnt/Music
+    - "sshfsdata:/mnt/feralMedia:ro"
+  environment:
+   - PUID=${PUID}
+   - PGID=${PGID}
+   - TZ=${TZ}
+  image: linuxserver/lidarr
+
+ jackett:
+  container_name: jackett
+  network_mode: "service:gluetun"
+  restart: unless-stopped
+  volumes:
+   - ./config:/config
+  environment:
+   - PUID=${PUID}
+   - PGID=${PGID}
+   - TZ=${TZ}
+  image: linuxserver/jackett
+
+ autobrr:
+  container_name: autobrr
+  image: ghcr.io/autobrr/autobrr:latest
+  network_mode: "service:gluetun"
+  restart: unless-stopped
+  user: ${PUID}:${PGID}
+  environment:
+   - TZ=${TZ}
+  volumes:
+   - ./config/autobrr:/config
+
+volumes:
+ sshfsdata:
+  driver: vieux/sshfs:latest
+  driver_opts:
+   sshcmd: "${FERAL_USER}@${FERAL_HOST}:/media/sdv1/home/${FERAL_USER}/private/media"
+   allow_other: ""
