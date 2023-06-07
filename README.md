@@ -31,3 +31,6 @@ Then you can navigate inside the container by "cd" or "ls" etc.
 Within the Radarr / Sonarr etc. services, you would add your Feral download client, but add the remote path mapping as well.
 This means that your local services can then download / copy / import using the locally mounted path (/mnt/feralMedia/movies/ for example)
 ![image](https://github.com/GitHubMilo/LocalFeralServices/assets/22710842/ac86a617-0b69-4470-9307-7265f0bfc41f)
+
+In your "Indexer" setup, you can add the local "Jackett" instance:
+![image](https://github.com/GitHubMilo/LocalFeralServices/assets/22710842/a51b8275-0cd4-46e9-bb4d-4920ad553e85)
