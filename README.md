@@ -17,11 +17,19 @@ Next, create a "config" sub-directory ("/share/Containers/config")
 In that sub-directory, create one called "vpn" ("/share/Containers/config/vpn")
 From your Feral box, get the "~/private/vpn/client.ovpn" file and transfer that to the ./config/vpn directory you just created.
 
+You need to install the vieux docker plugin (https://github.com/vieux/docker-volume-sshfs) to be able to use the remote drive mount.
+Firstly, ensure you have an ssh public key added to your Feral host's ~/.ssh/authorized_keys file.
+Then, run this (providing the local path to the .ssh directory where your key is stored):
+```docker plugin install vieux/sshfs sshkey.source=/path/to/local/.ssh/```
+
 Next step, in the chosen directory ("/share/Containers") run:
 ```docker-compose up -d```
 
 You can now run "docker-compose logs gluetun" to check the status of the VPN connection and look for any errors.
-You can do the same for the other services ("radarr" / "sonarr" / "lidarr" / "jackett" / "autobrr"
+```docker-compose logs gluetun```
+
+You can do the same for the other services ("radarr" / "sonarr" / "lidarr" / "jackett" / "autobrr")
+
 You can also "sh" into the containers by running:
 docker-compose exec {service} sh
 
